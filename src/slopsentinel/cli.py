@@ -935,7 +935,7 @@ def watch(
 
     q: queue.Queue[Path] = queue.Queue()
 
-    class _Handler(FileSystemEventHandler):
+    class _Handler(FileSystemEventHandler):  # type: ignore[misc]
         def _emit(self, raw_path: str) -> None:
             p = Path(raw_path)
             if should_watch_path(target, p):

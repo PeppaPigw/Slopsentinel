@@ -78,14 +78,20 @@ module = [
   "rich.*",
   "typer",
   "typer.*",
-  "watchdog",
-  "watchdog.*",
   "tree_sitter",
   "tree_sitter.*",
   "tree_sitter_languages",
   "tree_sitter_languages.*",
 ]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+  "watchdog",
+  "watchdog.*",
+]
+ignore_missing_imports = true
+follow_imports = "skip"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/slopsentinel"]
