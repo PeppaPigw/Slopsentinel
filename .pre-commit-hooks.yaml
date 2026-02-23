@@ -1,0 +1,6 @@
+- id: slopsentinel
+  name: SlopSentinel
+  description: Detect AI-generated slop and risky patterns.
+  entry: slopsentinel diff --staged
+  language: python
+  pass_filenames: false

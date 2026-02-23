@@ -1,0 +1,66 @@
+name: False positive report
+description: Report a rule firing on code that should not be flagged.
+labels: ["false-positive"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a false positive — reducing noise is a priority.
+
+        Please include the rule id and a small snippet that reproduces the issue.
+
+  - type: input
+    id: rule_id
+    attributes:
+      label: Rule ID
+      description: e.g. A03, E09, C03
+      placeholder: "E09"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options:
+        - Python
+        - JavaScript
+        - TypeScript
+        - Go
+        - Rust
+        - Java
+        - Kotlin
+        - Ruby
+        - PHP
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: snippet
+    attributes:
+      label: Code snippet (minimal repro)
+      description: Redact secrets. Prefer a minimal file that still triggers.
+      render: text
+      placeholder: |
+        # Minimal repro here
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this is a false positive
+      placeholder: |
+        This is legitimate because ...
+    validations:
+      required: true
+
+  - type: input
+    id: slopsentinel_version
+    attributes:
+      label: SlopSentinel version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+

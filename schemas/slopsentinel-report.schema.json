@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SlopSentinel scan report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "tool",
+    "score",
+    "ai_confidence",
+    "files_scanned",
+    "scoring_profile",
+    "signals",
+    "breakdown",
+    "dominant_fingerprints",
+    "violations"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "tool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" }
+      }
+    },
+    "score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "ai_confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "files_scanned": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "scoring_profile": {
+      "type": "string"
+    },
+    "signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["density", "clustering"],
+      "properties": {
+        "density": { "type": "number", "minimum": 0 },
+        "clustering": { "type": "number", "minimum": 0 }
+      }
+    },
+    "breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fingerprint", "quality", "hallucination", "maintainability", "security"],
+      "properties": {
+        "fingerprint": { "type": "integer", "minimum": 0 },
+        "quality": { "type": "integer", "minimum": 0 },
+        "hallucination": { "type": "integer", "minimum": 0 },
+        "maintainability": { "type": "integer", "minimum": 0 },
+        "security": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "dominant_fingerprints": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "violations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/violation" }
+    }
+  },
+  "$defs": {
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path"],
+      "properties": {
+        "path": { "type": "string" },
+        "start_line": { "type": ["integer", "null"], "minimum": 1 },
+        "start_col": { "type": ["integer", "null"], "minimum": 1 },
+        "end_line": { "type": ["integer", "null"], "minimum": 1 },
+        "end_col": { "type": ["integer", "null"], "minimum": 1 }
+      }
+    },
+    "violation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule_id", "severity", "dimension", "message", "suggestion", "location"],
+      "properties": {
+        "rule_id": { "type": "string" },
+        "severity": { "type": "string", "enum": ["info", "warn", "error"] },
+        "dimension": {
+          "type": "string",
+          "enum": ["fingerprint", "quality", "hallucination", "maintainability", "security"]
+        },
+        "message": { "type": "string" },
+        "suggestion": { "type": ["string", "null"] },
+        "location": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/location" }
+          ]
+        }
+      }
+    }
+  }
+}

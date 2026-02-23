@@ -1,0 +1,82 @@
+{
+  "name": "slopsentinel",
+  "displayName": "SlopSentinel",
+  "description": "Detect AI-generated slop in your code (SlopSentinel CLI + LSP client).",
+  "version": "0.1.0",
+  "publisher": "slopsentinel",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Linters"],
+  "activationEvents": [
+    "onCommand:slopsentinel.scan",
+    "onCommand:slopsentinel.fix",
+    "onCommand:slopsentinel.showTrend",
+    "onLanguage:python",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:go",
+    "onLanguage:rust",
+    "onLanguage:java",
+    "onLanguage:kotlin",
+    "onLanguage:ruby",
+    "onLanguage:php"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "slopsentinel.scan",
+        "title": "SlopSentinel: Scan Workspace"
+      },
+      {
+        "command": "slopsentinel.fix",
+        "title": "SlopSentinel: Fix Current File"
+      },
+      {
+        "command": "slopsentinel.showTrend",
+        "title": "SlopSentinel: Show Score Trend"
+      }
+    ],
+    "configuration": {
+      "title": "SlopSentinel",
+      "properties": {
+        "slopsentinel.executablePath": {
+          "type": "string",
+          "default": "slopsentinel",
+          "description": "Path to the slopsentinel executable (or `slop`)."
+        },
+        "slopsentinel.lspEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the SlopSentinel LSP client (diagnostics/hover/quickfix)."
+        },
+        "slopsentinel.threshold": {
+          "type": "number",
+          "default": 60,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Threshold passed to `slopsentinel scan --threshold` (0-100)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "webpack --mode production",
+    "watch": "webpack --watch --mode development",
+    "vscode:prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/vscode": "^1.85.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
+

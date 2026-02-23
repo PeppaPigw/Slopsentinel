@@ -1,0 +1,48 @@
+name: SlopSentinel
+description: Local-first AI slop code auditor (CLI + CI)
+author: SlopSentinel contributors
+
+branding:
+  icon: "shield"
+  color: "purple"
+
+inputs:
+  github-token:
+    description: "GitHub token used for PR commenting (recommend: ${{ github.token }})."
+    required: false
+  threshold:
+    description: "Score threshold (0-100). Below this is considered slop."
+    required: false
+    default: "60"
+  comment:
+    description: "Post PR line-level review comments."
+    required: false
+    default: "true"
+  fail-on-slop:
+    description: "Fail the job if score is below threshold."
+    required: false
+    default: "false"
+  rules:
+    description: "Rules to enable: all | claude,cursor,copilot,gemini,generic | or explicit rule ids."
+    required: false
+    default: "all"
+  sarif:
+    description: "Write a SARIF report file to the workspace."
+    required: false
+    default: "true"
+  sarif-path:
+    description: "Path to write the SARIF report (relative to repo root)."
+    required: false
+    default: "slopsentinel.sarif"
+
+outputs:
+  score:
+    description: "Final score (0-100)."
+  files_scanned:
+    description: "Number of files scanned."
+  sarif_path:
+    description: "Path to the generated SARIF report (when sarif=true)."
+
+runs:
+  using: docker
+  image: Dockerfile

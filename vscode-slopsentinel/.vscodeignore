@@ -1,0 +1,8 @@
+**/*.ts
+src/**
+out/**
+.gitignore
+node_modules/**
+tsconfig.json
+webpack.config.js
+

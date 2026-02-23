@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling>=1.24.2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "slopsentinel-plugin-security"
+version = "0.0.0"
+description = "Example SlopSentinel security plugin rules."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["slopsentinel"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.2.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/slopsentinel_plugin_security"]
+

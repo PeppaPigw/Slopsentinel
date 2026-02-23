@@ -1,0 +1,26 @@
+.venv/
+.dist_check_venv/
+.slopsentinel-bench*/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage_*
+htmlcov/
+*.egg-info/
+dist/
+dist_check/
+build/
+.slopsentinel/
+.slopsentinel-baseline.json
+slopsentinel.sarif
+
+# Internal planning / dev artifacts
+TaskBook.md
+sitecustomize.py
+
+# Local scan artifacts
+*.sarif
+*.slopsentinel-history.json

@@ -1,0 +1,37 @@
+name: Action Smoke Test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: write
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: slopsentinel
+        uses: ./
+        with:
+          github-token: ${{ github.token }}
+          threshold: 0
+          comment: false
+          fail-on-slop: false
+          rules: "all"
+          sarif: true
+          sarif-path: slopsentinel.sarif
+
+      - name: Upload SARIF (push only)
+        if: github.event_name != 'pull_request'
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ steps.slopsentinel.outputs.sarif_path }}
+

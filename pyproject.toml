@@ -1,0 +1,120 @@
+[build-system]
+requires = ["hatchling>=1.24.2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "slopsentinel"
+version = "1.0.0"
+description = "Local-first AI slop code auditor (CLI + CI)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "SlopSentinel contributors" }]
+dependencies = [
+  "rich>=13.7.1",
+  "typer>=0.12.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/slopsentinel/slopsentinel"
+Documentation = "https://github.com/slopsentinel/slopsentinel/tree/main/docs"
+Repository = "https://github.com/slopsentinel/slopsentinel"
+Issues = "https://github.com/slopsentinel/slopsentinel/issues"
+Changelog = "https://github.com/slopsentinel/slopsentinel/blob/main/CHANGELOG.md"
+
+[project.scripts]
+slopsentinel = "slopsentinel.cli:app"
+slop = "slopsentinel.cli:app"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2.0",
+  "hypothesis>=6.100.0",
+  "pytest-cov>=5.0.0",
+  "ruff>=0.9.0",
+  "mypy>=1.10.0",
+]
+watch = [
+  "watchdog>=4.0.0",
+]
+treesitter = [
+  "tree-sitter>=0.22.3",
+  "tree-sitter-languages>=1.10.2",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q -m \"not integration\""
+markers = [
+  "integration: slower integration tests (opt-in via -m integration)",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = [
+  # Keep line length enforcement out of ruff for now to avoid reformat churn.
+  "E501",
+]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_configs = true
+show_error_codes = true
+pretty = true
+namespace_packages = true
+explicit_package_bases = true
+mypy_path = ["src"]
+
+[[tool.mypy.overrides]]
+module = [
+  "hypothesis",
+  "hypothesis.*",
+  "rich",
+  "rich.*",
+  "typer",
+  "typer.*",
+  "watchdog",
+  "watchdog.*",
+  "tree_sitter",
+  "tree_sitter.*",
+  "tree_sitter_languages",
+  "tree_sitter_languages.*",
+]
+ignore_missing_imports = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/slopsentinel"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/slopsentinel/py.typed" = "slopsentinel/py.typed"
+"schemas/slopsentinel-config.schema.json" = "slopsentinel/schemas/slopsentinel-config.schema.json"
+"schemas/slopsentinel-report.schema.json" = "slopsentinel/schemas/slopsentinel-report.schema.json"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/schemas",
+  "/docs",
+  "/README.md",
+  "/CHANGELOG.md",
+  "/CONTRIBUTING.md",
+  "/LICENSE",
+  "/RELEASING.md",
+  "/action.yml",
+  "/Dockerfile",
+]
+
+[tool.hatch.envs.default]
+features = ["dev"]
+
+[tool.hatch.envs.default.scripts]
+lint = "ruff check ."
+typecheck = "mypy src/slopsentinel"
+test = "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -p pytest_cov --cov=slopsentinel --cov-fail-under=94"
+integration = "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -m integration"
+bench = "python tests/bench/bench_scan.py && python tests/bench/bench_rules.py"

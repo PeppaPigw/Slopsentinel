@@ -1,0 +1,15 @@
+[tool.slopsentinel]
+# Demo config used by `demo/record_demo.sh` and the README SVGs.
+#
+# Keep this minimal and deterministic so the demo output stays stable.
+languages = ["python"]
+threshold = 60
+fail-on-slop = false
+
+[tool.slopsentinel.rules]
+# Enable a small, high-signal set of rules for the demo (avoid repo-level cross-file rules).
+enable = ["claude", "gemini", "generic", "C09"]
+
+[tool.slopsentinel.ignore]
+# Keep the demo scan output focused on `bad_code.py`.
+paths = ["render_demo_svgs.py"]
