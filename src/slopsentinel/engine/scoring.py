@@ -166,7 +166,7 @@ def compute_breakdown(
         security=score_for("security"),
     )
 
-    # Phase 31: incorporate structure signals (density + clustering) as a small,
+    # Incorporate structure signals (density + clustering) as a small,
     # deterministic quality adjustment. We keep the dimension sum at 100 by
     # subtracting from "quality" only (bounded), so reports remain consistent.
     structure_penalty = _structure_penalty(density=density, clustering=clustering, total=len(violations))
