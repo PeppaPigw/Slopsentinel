@@ -11,6 +11,7 @@ RUN apt-get update \
 
 COPY pyproject.toml README.md LICENSE /app/
 COPY src /app/src
+COPY schemas /app/schemas
 
 RUN python -m pip install --no-cache-dir --upgrade pip \
   && python -m pip install --no-cache-dir ".[treesitter]"
