@@ -16,11 +16,11 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/slopsentinel/slopsentinel"
-Documentation = "https://github.com/slopsentinel/slopsentinel/tree/main/docs"
-Repository = "https://github.com/slopsentinel/slopsentinel"
-Issues = "https://github.com/slopsentinel/slopsentinel/issues"
-Changelog = "https://github.com/slopsentinel/slopsentinel/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/PeppaPigw/Slopsentinel"
+Documentation = "https://github.com/PeppaPigw/Slopsentinel/tree/main/docs"
+Repository = "https://github.com/PeppaPigw/Slopsentinel"
+Issues = "https://github.com/PeppaPigw/Slopsentinel/issues"
+Changelog = "https://github.com/PeppaPigw/Slopsentinel/blob/main/CHANGELOG.md"
 
 [project.scripts]
 slopsentinel = "slopsentinel.cli:app"

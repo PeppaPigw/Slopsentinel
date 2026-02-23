@@ -4,8 +4,8 @@ Catch AI-generated slop before it ships.
 
 [![PyPI](https://img.shields.io/pypi/v/slopsentinel.svg)](https://pypi.org/project/slopsentinel/)
 [![Python](https://img.shields.io/pypi/pyversions/slopsentinel.svg)](https://pypi.org/project/slopsentinel/)
-[![CI](https://github.com/slopsentinel/slopsentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/slopsentinel/slopsentinel/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/badge/coverage-94%25-brightgreen.svg)](https://github.com/slopsentinel/slopsentinel/actions/workflows/ci.yml)
+[![CI](https://github.com/PeppaPigw/Slopsentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/PeppaPigw/Slopsentinel/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/badge/coverage-94%25-brightgreen.svg)](https://github.com/PeppaPigw/Slopsentinel/actions/workflows/ci.yml)
 [![License](https://img.shields.io/pypi/l/slopsentinel.svg)](LICENSE)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://pre-commit.com/)
 
@@ -139,7 +139,7 @@ jobs:
         with:
           fetch-depth: 0 # required to diff against the PR base commit
       - id: slopsentinel
-        uses: slopsentinel/action@v1
+        uses: PeppaPigw/Slopsentinel@v1.0.0
         with:
           github-token: ${{ github.token }}
           threshold: 60

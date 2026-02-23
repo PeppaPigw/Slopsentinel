@@ -70,7 +70,6 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Terminal / JSON / SARIF output
 - PR diff scanning and line-level PR review comments
 
-[Unreleased]: https://github.com/slopsentinel/slopsentinel/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/slopsentinel/slopsentinel/compare/v0.1.0...v1.0.0
-[0.1.0]: https://github.com/slopsentinel/slopsentinel/releases/tag/v0.1.0
-
+[Unreleased]: https://github.com/PeppaPigw/Slopsentinel/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/PeppaPigw/Slopsentinel/compare/v0.1.0...v1.0.0
+[0.1.0]: https://github.com/PeppaPigw/Slopsentinel/releases/tag/v0.1.0
