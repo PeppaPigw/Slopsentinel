@@ -37,7 +37,13 @@ def render_sarif(violations: list[Violation], *, project_root: Path) -> str:
 
     results: list[dict[str, Any]] = []
     for v in violations:
-        results.append(_result(v, project_root=project_root, rule_index=rule_index))
+        res = _result(v, project_root=project_root, rule_index=rule_index)
+        # GitHub Code Scanning requires at least one physical location.
+        # Some project-level checks (or coarse heuristics) may not have a stable
+        # file/line mapping; omit them from SARIF to keep uploads valid.
+        if "locations" not in res:
+            continue
+        results.append(res)
 
     sarif = {
         "$schema": SARIF_SCHEMA,
